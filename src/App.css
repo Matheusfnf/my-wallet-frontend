@@ -1,6 +1,14 @@
-
-body{
+body {
   background-color: purple;
+  font-family: "Raleway", sans-serif;
+}
+
+input::placeholder {
+  color: black;
+}
+
+:link {
+  text-decoration: none;
 }
 
 .App {

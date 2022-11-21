@@ -1,26 +1,82 @@
+import React, { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 import myWalletLogo from "../../images/MyWallet.png";
 import { Cadastrostyled, InputStyled } from "./CadastroStyled";
+import validator from "validator";
 
 export default function Cadastro() {
+  const [email, setEmail] = useState("");
+  const [nome, setNome] = useState("");
+  const [senha, setSenha] = useState("");
+  const context = useContext(UserContext);
+
+  const checkForm = () => {
+    if (nome.length < 3 || nome.length > 20) {
+      alert("nome invalido");
+      return false;
+    }
+    if (!validator.isEmail(email)) {
+      alert("email invalido");
+      return false;
+    }
+    if (senha.length < 3 || senha.length > 20) {
+      alert("senha invalida");
+      return false;
+    }
+    return true;
+  };
+
+  const handlePost = async () => {
+    if (!checkForm()) return;
+    context.cadastro(email, nome, senha);
+  };
+
   return (
     <>
       <Cadastrostyled>
         <img src={myWalletLogo} />
 
         <InputStyled>
-          <form>
-            <input type="text" className="username" placeholder="Nome" />
-            <input type="text" className="email" placeholder="E-mail" />
-            <input type="text" className="password" placeholder="Senha" />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handlePost();
+            }}
+          >
+            <input
+              type="text"
+              className="username"
+              placeholder="Nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <input
+              type="text"
+              className="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              className="password"
+              placeholder="Senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
             <input
               type="text"
               className="confirm-password"
               placeholder="Confirme a senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
             />
+
+            <button type="submit"> Cadastrar</button>
           </form>
         </InputStyled>
-        <button> Cadastrar</button>
         <Link to="/">
           <p>Já tem uma conta? Entre agora!</p>
         </Link>
