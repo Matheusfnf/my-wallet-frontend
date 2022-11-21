@@ -7,11 +7,9 @@ import {
   Saldo,
 } from "./MainPageStyled";
 import exitIcon from "../../images/ExitIcon.png";
-import iconemais from "../../images/mais.png";
 import { Link } from "react-router-dom";
 import mais from "../../images/mais.png";
 import menos from "../../images/menos.png";
-import mock from "../../test/mock.json";
 import api from "../../service/api";
 import { parseCookies } from "nookies";
 
@@ -50,6 +48,7 @@ export default function MainPage() {
         <div className="Mainboard">
           <BoardContent>
             {entradas?.map((caixa, index) => {
+              const str = String(caixa.value);
               return (
                 <li key={index}>
                   <div className="time">{caixa.time}</div>
@@ -62,7 +61,7 @@ export default function MainPage() {
                     }
                     className="price"
                   >
-                    {caixa.value}
+                    {str.split("-").join("")}
                   </div>
                 </li>
               );

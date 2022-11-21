@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import "./reset.css"
+import "./reset.css";
+import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/Login/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cadastro from "./components/Cadastro/Cadastro";
@@ -8,8 +9,6 @@ import MainPage from "./components/MainPage/MainPage";
 import Entrada from "./components/Entrada/Entrada";
 import Saida from "./components/Saida/Saida";
 import { UserProvider } from "./context/UserContext";
-
-
 
 function App() {
   return (

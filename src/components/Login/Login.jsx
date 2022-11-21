@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import validator from "validator";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,11 +13,11 @@ export default function Login() {
   const context = useContext(UserContext);
   const checkForm = () => {
     if (!validator.isEmail(email)) {
-      alert("email invalido");
+      toast.error("email invalido");
       return false;
     }
     if (senha.length < 3 || senha.length > 20) {
-      alert("senha invalida");
+      toast.error("senha invalida");
       return false;
     }
     return true;
@@ -46,7 +48,7 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              type="text"
+              type="password"
               className="password"
               placeholder="Senha"
               value={senha}

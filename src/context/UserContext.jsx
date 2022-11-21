@@ -2,6 +2,8 @@ import { createContext } from "react";
 
 import api from "../service/api";
 import { setCookie } from "nookies";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext({});
 
@@ -50,7 +52,7 @@ export function UserProvider({ children }) {
   async function saida(valor, descricao) {
     try {
       const response = await api.post("/entradas", {
-        value: valor,
+        value: -valor,
         description: descricao,
         type: "saida",
       });

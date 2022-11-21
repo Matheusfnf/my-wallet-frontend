@@ -5,32 +5,41 @@ import { UserContext } from "../../context/UserContext";
 import myWalletLogo from "../../images/MyWallet.png";
 import { Cadastrostyled, InputStyled } from "./CadastroStyled";
 import validator from "validator";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function Cadastro() {
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");
+  const [confirmasenha, setConfirmaSenha] = useState("");
   const context = useContext(UserContext);
 
   const checkForm = () => {
     if (nome.length < 3 || nome.length > 20) {
-      alert("nome invalido");
+      toast.error("nome invalido");
       return false;
     }
     if (!validator.isEmail(email)) {
-      alert("email invalido");
+      toast.error("email inválido");
       return false;
     }
     if (senha.length < 3 || senha.length > 20) {
-      alert("senha invalida");
+      toast.error("senha invalida");
       return false;
     }
+    if(confirmasenha !== senha){
+      toast.error("as senhas não coincidem");
+      return false;
+    }
+    
     return true;
   };
 
   const handlePost = async () => {
     if (!checkForm()) return;
     context.cadastro(email, nome, senha);
+    
   };
 
   return (
@@ -60,18 +69,18 @@ export default function Cadastro() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              type="text"
+              type="password"
               className="password"
               placeholder="Senha"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
             />
             <input
-              type="text"
+              type="password"
               className="confirm-password"
               placeholder="Confirme a senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              value={confirmasenha}
+              onChange={(e) => setConfirmaSenha(e.target.value)}
             />
 
             <button type="submit"> Cadastrar</button>

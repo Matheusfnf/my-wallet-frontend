@@ -9,11 +9,11 @@ export default function Saida() {
   const context = useContext(UserContext);
 
   const checkForm = () => {
-    if (valor.length <= 0 || ![0,9]) {
+    if (valor.length <= 0 || ![0, 9] ) {
       alert("valor deve ser um número positivo");
       return false;
     }
-    if (descricao.length < 3 || descricao.length > 25) {
+    if (descricao.length < 3 || descricao.length > 25 || descricao == [0, 9]) {
       alert("descricao inválida");
       return false;
     }
